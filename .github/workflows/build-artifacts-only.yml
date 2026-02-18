@@ -101,8 +101,6 @@ jobs:
         CFLAGS_aarch64_unknown_linux_gnu: "-D__ARM_ARCH=8"
         CC_aarch64_unknown_linux_gnu: "aarch64-unknown-linux-gnu-gcc"   # ← correct name with -unknown-
         AR_aarch64_unknown_linux_gnu: "aarch64-unknown-linux-gnu-ar"
-        # Optional: force jemalloc to skip some detection if needed
-        JEMALLOC_OVERRIDE: "1"   # sometimes helps with probe
       with:
         target: ${{ matrix.platform.target }}
         args: --release --out dist --find-interpreter

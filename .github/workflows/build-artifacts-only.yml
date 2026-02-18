@@ -96,7 +96,7 @@ jobs:
           ${{ runner.os }}-cargo-
 
     - name: Build wheels
-      uses: PyO3/maturin-action@v1
+      uses: messense/maturin-action@v1
       env:
         CFLAGS_aarch64_unknown_linux_gnu: "-D__ARM_ARCH=8"
         CC_aarch64_unknown_linux_gnu: "aarch64-linux-gnu-gcc"  

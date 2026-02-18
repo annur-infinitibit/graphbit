@@ -61,6 +61,6 @@ openssl = { version = "0.10", features = ["vendored"] }
 openssl = {version = "0.10", features = ["vendored"]}
 
 # Use jemallocator only on native unix targets (not cross-compiled ones)
-[target.'cfg(unix)'.dependencies]
-jemallocator = { workspace = true, optional = true }
+[target.'cfg(all(unix, target_arch = "x86_64"))'.dependencies]
+jemallocator.workspace = true
 

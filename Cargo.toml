@@ -74,15 +74,6 @@ debug = true
 incremental = true
 opt-level = 1
 
-# Enable vendored OpenSSL for musl targets (Alpine Linux)
-# musl containers don't have OpenSSL dev packages, so we compile from source
-[target.'cfg(target_env = "musl")'.dependencies]
-openssl = {version = "0.10", features = ["vendored"]}
-
-# Cross-compilation: vendor OpenSSL for aarch64 (no dev packages in cross env)
-[target.aarch64-unknown-linux-gnu.dependencies]
-openssl = {version = "0.10", features = ["vendored"]}
-
 [target.'cfg(all(unix, target_arch = "x86_64"))'.dependencies]
 jemallocator.workspace = true
 
@@ -118,7 +109,6 @@ jemallocator = "0.5"
 lopdf = "0.32"
 mimalloc = {version = "0.1", default-features = false}
 num_cpus = "1.16"
-openssl = "0.10"
 pdf-extract = "0.10"
 # Graph and algorithms
 petgraph = "0.6"
@@ -129,7 +119,8 @@ pythonize = "0.24"
 quick-xml = {version = "0.36", features = ["serialize"]}
 rand = "0.9"
 regex = "1.10"
-reqwest = {version = "0.11", features = ["json", "stream"]}
+reqwest = {version = "0.11", default-features = false, features = ["json", "stream", "rustls-tls"]}
+ring = "0.17" 
 # HTML parsing
 scraper = "0.25"
 serde = {version = "1.0", features = ["derive"]}

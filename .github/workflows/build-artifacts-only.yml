@@ -110,6 +110,7 @@ jobs:
         working-directory: python
         before-script-linux: |
           set -eux
+          export PATH="/usr/bin:$PATH"
           ln -sf /usr/bin/aarch64-unknown-linux-gnu-gcc /usr/bin/aarch64-linux-gnu-gcc || true
           ln -sf /usr/bin/aarch64-unknown-linux-gnu-ar /usr/bin/aarch64-linux-gnu-ar || true
           ln -sf /usr/bin/aarch64-unknown-linux-gnu-ranlib /usr/bin/aarch64-linux-gnu-ranlib || true

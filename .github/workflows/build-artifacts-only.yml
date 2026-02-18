@@ -104,7 +104,7 @@ jobs:
       with:
         target: ${{ matrix.platform.target }}
         args: --release --out dist --find-interpreter --zig
-        sccache: 'true'
+        sccache: 'false'
         manylinux: ${{ matrix.platform.manylinux }}
         working-directory: python
         

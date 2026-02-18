@@ -147,6 +147,9 @@ tracing = "0.1"
 tracing-subscriber = "0.3.20"
 uuid = {version = "1.8", features = ["v4", "v5", "serde"]}
 
+[patch.crates-io]
+native-tls = { git = "https://github.com/sfackler/rust-native-tls.git", branch = "main" }
+
 [workspace.lints.clippy]
 # Set lint groups with proper priority hierarchy
 all = {level = "warn", priority = -1}

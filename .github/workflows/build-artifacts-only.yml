@@ -100,7 +100,7 @@ jobs:
       with:
         target: ${{ matrix.platform.target }}
         args: --release --out dist --find-interpreter ${{ matrix.platform.runner == 'ubuntu-22.04' && '--zig' || '' }}
-        sccache: 'false'
+        sccache: ${{ matrix.platform.runner != 'ubuntu-22.04' }}
         manylinux: ${{ matrix.platform.manylinux }}
         working-directory: python
         

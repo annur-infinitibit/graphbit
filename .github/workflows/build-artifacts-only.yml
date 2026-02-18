@@ -107,6 +107,13 @@ jobs:
         working-directory: python
         before-script-linux: |
           set -eux
+          if command -v yum >/dev/null 2>&1; then
+            yum -y install perl-FindBin perl-core
+          elif command -v apt-get >/dev/null 2>&1; then
+            apt-get update && apt-get install -y perl-modules
+          elif command -v apk >/dev/null 2>&1; then
+            apk add perl-findbin
+          fi
           # Install OpenSSL development packages for glibc builds
           # musl builds will use vendored OpenSSL (configured in Cargo.toml)
           if command -v yum >/dev/null 2>&1; then

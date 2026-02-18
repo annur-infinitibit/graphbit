@@ -110,26 +110,12 @@ jobs:
         working-directory: python
         before-script-linux: |
           set -eux
-          export PATH="/usr/bin:$PATH"
-          ln -sf /usr/bin/aarch64-unknown-linux-gnu-gcc /usr/bin/aarch64-linux-gnu-gcc || true
-          ln -sf /usr/bin/aarch64-unknown-linux-gnu-ar /usr/bin/aarch64-linux-gnu-ar || true
-          ln -sf /usr/bin/aarch64-unknown-linux-gnu-ranlib /usr/bin/aarch64-linux-gnu-ranlib || true
           if command -v yum >/dev/null 2>&1; then
             yum install -y perl-core
           elif command -v apt-get >/dev/null 2>&1; then
             apt-get update && apt-get install -y perl
           elif command -v apk >/dev/null 2>&1; then
             apk add perl
-          fi
-          # Install aarch64 cross-compiler for glibc targets (not musl)
-          if [[ "${{ matrix.platform.target }}" == "aarch64" ]] && [[ "${{ matrix.platform.manylinux }}" != musllinux* ]]; then
-            if command -v yum >/dev/null 2>&1; then
-              # CentOS/RHEL - install cross toolchain
-              yum install -y gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu
-            elif command -v apt-get >/dev/null 2>&1; then
-              # Debian/Ubuntu
-              apt-get update && apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
-            fi
           fi
           # Install OpenSSL development packages for glibc builds
           # musl builds will use vendored OpenSSL (configured in Cargo.toml)

@@ -46,11 +46,11 @@ jobs:
         platform:
           # Linux (glibc) - common Linux distributions
         - runner: ubuntu-22.04
-          target: x86_64-unknown-linux-gnu
-          manylinux: manylinux_2_34
+          target: x86_64
+          manylinux: auto
         - runner: ubuntu-22.04
-          target: aarch64-unknown-linux-gnu
-          manylinux: manylinux_2_34
+          target: aarch64
+          manylinux: auto
 
           # Linux (musl) - Alpine / minimal containers
         - runner: ubuntu-22.04

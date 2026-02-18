@@ -62,5 +62,5 @@ jemallocator.workspace = true
 mimalloc.workspace = true
 
 # Windows: mimalloc
-[target.'cfg(target_os = "windows")'.dependencies]
-mimalloc.workspace = true
+# [target.'cfg(target_os = "windows")'.dependencies]
+# mimalloc.workspace = true

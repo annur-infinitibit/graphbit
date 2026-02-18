@@ -57,6 +57,9 @@ version.workspace = true
 [target.aarch64-unknown-linux-musl.dependencies]
 openssl = { version = "0.10", features = ["vendored"] }
 
+[target.aarch64-unknown-linux-gnu.dependencies]
+openssl = {version = "0.10", features = ["vendored"]}
+
 # Use jemallocator only on native unix targets (not cross-compiled ones)
 [target.'cfg(unix)'.dependencies]
 jemallocator = { workspace = true, optional = true }

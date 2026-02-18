@@ -121,6 +121,16 @@ jobs:
           elif command -v apk >/dev/null 2>&1; then
             apk add perl
           fi
+          # Install aarch64 cross-compiler for glibc targets (not musl)
+          if [[ "${{ matrix.platform.target }}" == "aarch64" ]] && [[ "${{ matrix.platform.manylinux }}" != musllinux* ]]; then
+            if command -v yum >/dev/null 2>&1; then
+              # CentOS/RHEL - install cross toolchain
+              yum install -y gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu
+            elif command -v apt-get >/dev/null 2>&1; then
+              # Debian/Ubuntu
+              apt-get update && apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+            fi
+          fi
           # Install OpenSSL development packages for glibc builds
           # musl builds will use vendored OpenSSL (configured in Cargo.toml)
           if command -v yum >/dev/null 2>&1; then

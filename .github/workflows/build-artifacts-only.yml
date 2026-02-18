@@ -99,9 +99,8 @@ jobs:
       uses: messense/maturin-action@v1
       env:
         CFLAGS_aarch64_unknown_linux_gnu: "-D__ARM_ARCH=8"
-        CC_aarch64_unknown_linux_gnu: "aarch64-linux-gnu-gcc"  
-        AR_aarch64_unknown_linux_gnu: "aarch64-linux-gnu-ar"
-        RANLIB_aarch64_unknown_linux_gnu: "aarch64-linux-gnu-ranlib"
+        CC_aarch64_unknown_linux_gnu: "zig cc -target aarch64-linux-gnu"
+        AR_aarch64_unknown_linux_gnu: "zig ar"
       with:
         target: ${{ matrix.platform.target }}
         args: --release --out dist --find-interpreter --zig

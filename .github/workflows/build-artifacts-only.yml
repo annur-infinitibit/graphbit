@@ -96,7 +96,7 @@ jobs:
           ${{ runner.os }}-cargo-
 
     - name: Build wheels
-      uses: messense/maturin-action@v1
+      uses: PyO3/maturin-action@v1
       with:
         target: ${{ matrix.platform.target }}
         args: --release --out dist --find-interpreter ${{ matrix.platform.runner == 'ubuntu-22.04' && '--zig' || '' }}

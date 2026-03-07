@@ -95,6 +95,11 @@ jobs:
           ${{ runner.os }}-cargo-build-
           ${{ runner.os }}-cargo-
 
+    - name: Set RUSTFLAGS for Windows (panic=abort to avoid LNK2005)
+      if: runner.os == 'Windows'
+      run: echo "RUSTFLAGS=-C panic=abort" >> $env:GITHUB_ENV
+      shell: pwsh
+
     - name: Build wheels
       uses: messense/maturin-action@v1
       with:

@@ -39,6 +39,9 @@ jobs:
   build-wheels:
     name: Build Wheel - ${{ matrix.platform.runner }} - ${{ matrix.platform.target }}
     runs-on: ${{ matrix.platform.runner }}
+    env:
+      # So Cargo passes -C panic=abort to every crate on Windows; avoids LNK2005 rust_eh_personality.
+      RUSTFLAGS: ${{ matrix.platform.runner == 'windows-latest' && '-C panic=abort' || '' }}
 
     strategy:
       fail-fast: false

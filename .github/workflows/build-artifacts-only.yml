@@ -39,6 +39,9 @@ jobs:
   build-wheels:
     name: Build Wheel - ${{ matrix.platform.runner }} - ${{ matrix.platform.target }}
     runs-on: ${{ matrix.platform.runner }}
+    env:
+      # So Cargo passes -C panic=abort to every crate on Windows; avoids LNK2005 rust_eh_personality.
+      RUSTFLAGS: ${{ matrix.platform.runner == 'windows-latest' && '-C panic=abort' || '' }}
 
     strategy:
       fail-fast: false
@@ -95,7 +98,21 @@ jobs:
           ${{ runner.os }}-cargo-build-
           ${{ runner.os }}-cargo-
 
+    - name: Set RUSTFLAGS for Windows (panic=abort to avoid LNK2005)
+      if: runner.os == 'Windows'
+      run: echo "RUSTFLAGS=-C panic=abort" >> $env:GITHUB_ENV
+      shell: pwsh
+
+    # On Windows, clear target/ so guardrail_ffi is rebuilt with RUSTFLAGS (avoids stale cache with rust_eh_personality).
+    - name: Clear target on Windows for clean build
+      if: runner.os == 'Windows'
+      run: Remove-Item -Recurse -Force target -ErrorAction SilentlyContinue
+      shell: pwsh
+
     - name: Build wheels
+      env:
+        # So Cargo passes -C panic=abort to every crate (including guardrail_ffi); avoids LNK2005 on Windows.
+        RUSTFLAGS: ${{ runner.os == 'Windows' && '-C panic=abort' || '' }}
       uses: messense/maturin-action@v1
       with:
         target: ${{ matrix.platform.target }}

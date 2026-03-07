@@ -1,0 +1,4 @@
+# Force panic=abort for Windows so the guardrail_ffi wrapper and prebuilt .lib
+# don't both define rust_eh_personality (avoids LNK2005 when linking graphbit.dll).
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "panic=abort"]

@@ -56,6 +56,9 @@ manifest-path = "Cargo.toml"
 module-name = "graphbit"
 profile = "release"
 python-source = "python-src"
+# Force panic=abort so all crates (including guardrail_ffi wrapper) omit rust_eh_personality;
+# avoids LNK2005 when linking the prebuilt guardrail_ffi.lib on Windows.
+rustc-args = ["-C", "panic=abort"]
 skip-auditwheel = false
 strip = true
 
